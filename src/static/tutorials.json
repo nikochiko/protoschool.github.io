@@ -66,7 +66,10 @@
 				"type": "tutorial",
 				"description": "Use the IPFS DAG API to create create verifiable links between dataset with Content Identifiers (CIDs). (This tutorial includes JavaScript code challenges.)"
 			}
-		]
+		],
+		"updateMessage": "",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2019-01-01T00:00:00.000Z"
 	},
 	"0002": {
 		"url": "basics",
@@ -104,7 +107,10 @@
 				"type": "tutorial",
 				"description": "Ready to deal with more than primitives? Explore the API custom-built for efficient handling of files in IPFS."
 			}
-		]
+		],
+		"updateMessage": "",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2019-01-01T00:00:00.000Z"
 	},
 	"0003": {
 		"url": "blog",
@@ -136,7 +142,10 @@
 				"type": "tutorial",
 				"description": "Ready to deal with more than primitives? Explore the API custom-built for efficient handling of files in IPFS."
 			}
-		]
+		],
+		"updateMessage": "",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2019-01-01T00:00:00.000Z"
 	},
 	"0004": {
 		"url": "mutable-file-system",
@@ -187,7 +196,10 @@
 				"type": "tutorial",
 				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
 			}
-		]
+		],
+		"updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2020-03-02T00:00:00.000Z"
 	},
 	"0005": {
 		"url": "regular-files-api",
@@ -226,7 +238,10 @@
 				"type": "tutorial",
 				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
 			}
-		]
+		],
+    "updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2020-03-02T00:00:00.000Z"
 	},
 	"0006": {
 		"url": "anatomy-of-a-cid",
@@ -270,6 +285,9 @@
 				"type": "docs",
 				"description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
 			}
-		]
+		],
+		"updateMessage": "Read the announcement of this newly published tutorial [here](https://blog.ipfs.io/2020-03-04-protoschool-tutorial-anatomy-of-a-cid).",
+    "createdAt": "2020-03-06T00:00:00.000Z",
+    "updatedAt": "2020-03-06T00:00:00.000Z"
 	}
 }

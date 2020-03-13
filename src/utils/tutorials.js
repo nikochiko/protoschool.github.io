@@ -1,4 +1,5 @@
 import marked from 'meta-marked'
+import moment from 'moment'
 
 import tutorials from '../static/tutorials.json'
 import { deriveShortname } from './paths'
@@ -91,9 +92,39 @@ export function getTutorialFullUrl (tutorialId) {
   return `${window.location.origin}/#/${tutorials[tutorialId].url}`
 }
 
+export const states = {
+  NEW: 'new',
+  UPDATED: 'updated'
+}
+
+export const state = {
+  isTutorialPassed,
+  hasTutorialBeenUpdatedRecently,
+  isTutorialNew,
+  get: function get (tutorial) {
+    if (isTutorialNew(tutorial)) {
+      return states.NEW
+    } else if (hasTutorialBeenUpdatedRecently(tutorial)) {
+      return states.UPDATED
+    }
+
+    return ''
+  }
+}
+
 // returns boolean - true if user has passed all lessons in the tutorial
 export function isTutorialPassed (tutorial) {
   return !!localStorage[`passed/${tutorial.url}`]
+}
+
+export function hasTutorialBeenUpdatedRecently (tutorial) {
+  return (
+    new Date(localStorage[`passed/${tutorial.url}`]) < new Date(tutorial.updatedAt)
+  )
+}
+
+export function isTutorialNew (tutorial) {
+  return moment().diff(tutorial.createdAt, 'month') === 0 && !isTutorialPassed(tutorial)
 }
 
 // returns string representing tutorial type

@@ -15,7 +15,7 @@
               :tutorialId="tutorial.formattedId"
               class="h2 ml3" />
         </div>
-        <CongratulationsCallout
+        <TutorialCompletionCallout
             v-if="isResources && isTutorialPassed"
             :tutorial="tutorial"
             class="mv4"
@@ -125,7 +125,7 @@ import CodeEditor from './CodeEditor.vue'
 import Output from './Output.vue'
 import Info from './Info.vue'
 import Validator from './Validator.vue'
-import CongratulationsCallout from './CongratulationsCallout.vue'
+import TutorialCompletionCallout from './callouts/TutorialCompletion.vue'
 import TypeIcon from './TypeIcon.vue'
 
 const MAX_EXEC_TIMEOUT = 10000
@@ -193,7 +193,7 @@ export default {
     Output,
     Info,
     Validator,
-    CongratulationsCallout,
+    TutorialCompletionCallout,
     TypeIcon
   },
   props: {
@@ -464,7 +464,7 @@ export default {
           return false
         }
       }
-      localStorage[`passed/${this.tutorial.url}`] = 'passed'
+      localStorage[`passed/${this.tutorial.url}`] = new Date().toISOString()
       this.trackEvent(EVENTS.TUTORIAL_PASSED)
       return true
     },
