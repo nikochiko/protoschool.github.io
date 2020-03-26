@@ -543,8 +543,8 @@ The properties `updateMessage`, `createdAt` and `updatedAt` are used to show upd
 
 ![Updated Tutorial Message](public/tutorial_message_update.jpg)
 
-- For the message to show as "New", the `createdAt` date needs to be less than a month ago
-- For the message to show as "Update", the `updatedAt` date needs to be less than a month ago
+- For the message to show as "New", the `createdAt` date needs to be less than a month ago.
+- For the message to show as "Update", the `updatedAt` date needs to be less than a month ago and user completed the tutorial before `updatedAt`.
 
 The text inside the message is picked up from `updateMessage` and it can be markdown formatted. For tutorial updates a message needs to be included to explain what has been updated.
 
