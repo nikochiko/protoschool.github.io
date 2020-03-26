@@ -508,7 +508,10 @@ In `static/tutorials.json`, add a new key for your tutorial and fill in the appr
       "link": "https://docs.domain.io",
       "type": "docs"
     }
-  ]
+  ],
+  "updateMessage": "",
+  "createdAt": "2020-01-01T00:00:00.000Z",
+  "updatedAt": "2020-01-01T00:00:00.000Z"
 },
 ```
 
@@ -533,6 +536,21 @@ Examples of meaningful resource `type`s include: `docs`, `demo`, `tutorial`, `ar
 Be sure to include any ProtoSchool tutorials that would provide a nice follow-on to your own content. Be sure to use the type `tutorial` for these, and they will automagically receive an extra callout as ProtoSchool tutorials when the page renders, like so:
 
 ![screenshot](public/protoschool_resource.png)
+
+The properties `updateMessage`, `createdAt` and `updatedAt` are used to show update messages to users about a tutorial. There are two types of messages: `new` and `updated`.
+
+![New Tutorial Message](public/tutorial_message_new.jpg)
+
+![Updated Tutorial Message](public/tutorial_message_update.jpg)
+
+- For the message to show as "New", the `createdAt` date needs to be less than a month ago
+- For the message to show as "Update", the `updatedAt` date needs to be less than a month ago
+
+The text inside the message is picked up from `updateMessage` and it can be markdown formatted. For tutorial updates a message needs to be included to explain what has been updated.
+
+Only major updates to tutorials like code solution changes and major definitions changing qualify as tutorial updates. Simple typo fixes and such do not qualify for tutorial updates.
+
+If a user has completed a tutorial, the message will disappear automatically.
 
 #### Add your tutorial to `static/courses.json`
 
