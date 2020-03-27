@@ -1,9 +1,30 @@
 import marked from 'meta-marked'
 import moment from 'moment'
 
-import tutorials from '../static/tutorials.json'
-import { deriveShortname } from './paths'
 import projects from './projects'
+
+// Load data from the window variable
+// This supports data overriding and custom SSR
+const tutorialsJson = require('../static/tutorials.json')
+const tutorials = (window.__DATA__ && window.__DATA__.tutorials) || tutorialsJson
+
+// SET CASING OVERRIDES HERE
+// If a word in a URL would not be appropriate if only the first letter were capitalized,
+// add that word here as a property with the correct capitalization (string) as its value.
+// This is to be used for single words, not full hyphenated paths. Capitalization of that
+// word will apply throughout all tutorial shortnames that include it.
+const correctedCases = {
+  api: 'API',
+  cid: 'CID',
+  of: 'of',
+  a: 'a'
+}
+
+function deriveShortname (path) {
+  return path.split('-').map(word => (
+    correctedCases[word] ? correctedCases[word] : (word.charAt(0).toUpperCase() + word.slice(1))
+  )).join(' ')
+}
 
 // Preprocess the tutorials.json file with all the needed info
 for (const tutorialId in tutorials) {
