@@ -139,9 +139,27 @@ export function isTutorialPassed (tutorial) {
 }
 
 export function hasTutorialBeenUpdatedRecently (tutorial) {
-  return (
-    new Date(localStorage[`passed/${tutorial.url}`]) < new Date(tutorial.updatedAt)
+  const updatedAtDate = new Date(tutorial.updatedAt)
+  const tutorialPassedAt = localStorage[`passed/${tutorial.url}`]
+  const tutorialHasUpdates =
+    tutorial.updatedAt !== tutorial.createdAt ||
+    !!tutorial.updateMessage
+
+  const tutorialsPassedBeforeUpdate = tutorialPassedAt && (
+    tutorialPassedAt === 'passed' ||
+    new Date(tutorialPassedAt) < updatedAtDate
   )
+
+  const someLessonPassedBeforeUpdate = tutorial.lessons.some(lesson => {
+    const lessonPassedAt = localStorage[`passed/${tutorial.url}/${lesson.formattedId}`]
+
+    return lessonPassedAt && (
+      lessonPassedAt === 'passed' ||
+      new Date(lessonPassedAt) < updatedAtDate
+    )
+  })
+
+  return tutorialHasUpdates && (tutorialsPassedBeforeUpdate || someLessonPassedBeforeUpdate)
 }
 
 export function isTutorialNew (tutorial) {
@@ -161,6 +179,14 @@ export function getTutorialType (tutorialId) {
   }
 }
 
+export function getTutorialByUrl (tutorialUrl) {
+  return Object.values(tutorials).find(({ url }) => url === tutorialUrl)
+}
+
+export function setTutorialPassed (tutorial) {
+  localStorage[`passed/${tutorial.url}`] = new Date().toISOString()
+}
+
 // returns string representing lesson type
 export function getLessonType (tutorialId, lessonId) {
   if (lessonId === 'resources') {
@@ -169,8 +195,16 @@ export function getLessonType (tutorialId, lessonId) {
   return getLesson(tutorialId, lessonId).type
 }
 
-export function getTutorialByUrl (tutorialUrl) {
-  return Object.values(tutorials).find(({ url }) => url === tutorialUrl)
+export function setLessonPassed (tutorial, lesson) {
+  if (lesson.type === 'resources') {
+    localStorage[`passed/${tutorial.url}/resources`] = new Date().toISOString()
+  }
+
+  localStorage[`passed/${tutorial.url}/${lesson.formattedId}`] = new Date().toISOString()
+}
+
+export function isLessonPassed (tutorial, lesson) {
+  return !!localStorage[`passed/${tutorial.url}/${lesson.formattedId}`]
 }
 
 // Get all redirects for each tutorial through the `redirects` attribute

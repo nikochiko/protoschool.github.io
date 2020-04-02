@@ -48,12 +48,6 @@ describe(`DISPLAYS CORRECT TUTORIALS`, function () {
   })
 })
 
-describe.only(`DISPLAY TUTORIAL MESSAGES`, function () {
-  it(`should show new message`, function () {
-    cy.visitWithMockData(`/#/tutorials`)
-  })
-})
-
 // ensures reset code button works for file upload and standard code challenges
 describe(`RESETS CODE SUCCESSFULLY`, function () {
   testResetCode(testLessons.code.tutorialId, testLessons.code.lessonNr)

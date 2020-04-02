@@ -7,7 +7,7 @@
     <InfoIcon class="mr1" />
       <div>
           <h2 class="f5 fw6 ttu mt0 nb1 p0 flex items-center content-center">{{tutorialState.title}}</h2>
-          <div v-if="tutorialState.message" class="f6 lh-copy mt2 mb2" v-html="tutorialState.message"></div>
+          <div v-if="tutorialState.message" class="f6 lh-copy mt2 mb2 tutorial-message-text" v-html="tutorialState.message"></div>
       </div>
   </div>
 </template>

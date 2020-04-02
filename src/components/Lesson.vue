@@ -111,7 +111,13 @@ import all from 'it-all'
 import toBuffer from 'it-to-buffer'
 import newGithubIssueUrl from 'new-github-issue-url'
 
-import { getTutorialByUrl, isTutorialPassed, getLesson } from '../utils/tutorials'
+import {
+  getTutorialByUrl,
+  isTutorialPassed,
+  setTutorialPassed,
+  setLessonPassed,
+  getLesson
+} from '../utils/tutorials'
 import { EVENTS } from '../static/countly'
 import marked from '../utils/marked'
 import Header from './Header.vue'
@@ -269,7 +275,7 @@ export default {
   },
   mounted: function () {
     if (this.isResources) {
-      localStorage[this.lessonKey] = 'passed'
+      setLessonPassed(this.tutorial, this.lesson)
       this.trackEvent(EVENTS.LESSON_PASSED)
     }
   },
@@ -382,7 +388,7 @@ export default {
         ipfs.stop()
       }
       if (output.test.success) {
-        localStorage[this.lessonKey] = 'passed'
+        setLessonPassed(this.tutorial, this.lesson)
         if (auto !== true) {
           // track lesson passed if it has an exercise (incl file ones)
           this.trackEvent(EVENTS.LESSON_PASSED)
@@ -460,11 +466,13 @@ export default {
       for (let i = 1; i <= this.lessonsInTutorial; i++) {
         const lessonNr = i.toString().padStart(2, 0)
         const lsKey = `passed/${this.tutorial.url}/${lessonNr}`
-        if (localStorage[lsKey] !== 'passed') {
+
+        if (!localStorage[lsKey]) {
           return false
         }
       }
-      localStorage[`passed/${this.tutorial.url}`] = new Date().toISOString()
+
+      setTutorialPassed(this.tutorial)
       this.trackEvent(EVENTS.TUTORIAL_PASSED)
       return true
     },
@@ -517,7 +525,7 @@ export default {
       this.cachedChoice = !!localStorage[this.cacheKey]
       Vue.set(this.output, 'test', result)
       if (this.output.test.success) {
-        localStorage[this.lessonKey] = 'passed'
+        setLessonPassed(this.tutorial, this.lesson)
         this.lessonPassed = !!localStorage[this.lessonKey]
         if (result.auto !== true) {
           // track multiple choice lesson passed if not on page load
@@ -535,7 +543,7 @@ export default {
       if (this.exercise) {
         Vue.set(this.output, 'test', null)
       } else {
-        localStorage[this.lessonKey] = 'passed'
+        setLessonPassed(this.tutorial, this.lesson)
         // track passed lesson if text only
         if (!this.isMultipleChoiceLesson) {
           this.trackEvent(EVENTS.LESSON_PASSED)
@@ -554,7 +562,7 @@ export default {
       if (this.exercise) {
         Vue.set(this.output, 'test', null)
       } else {
-        localStorage[this.lessonKey] = 'passed'
+        setLessonPassed(this.tutorial, this.lesson)
         this.lessonPassed = !!localStorage[this.lessonKey]
       }
       this.$router.push({ path: '/tutorials/' })
