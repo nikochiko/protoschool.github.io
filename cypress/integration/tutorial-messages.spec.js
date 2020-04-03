@@ -105,7 +105,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--updated').should('not.exist')
     })
 
-    it.only(`should not show new message for published tutorials more than a month ago that have been finished before the tutorial messages feature`, function () {
+    it(`should not show new message for published tutorials more than a month ago that have been finished before the tutorial messages feature`, function () {
       const date = moment().add(-5, 'weeks')
 
       visitTutorialsWithDates({
