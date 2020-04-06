@@ -94,6 +94,24 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--new .tutorial-message-text').should('contain', 'new message')
     })
 
+    it(`should not show new message for tutorials published less than a month ago and the user has some lessons completed`, function () {
+      const date = moment().add(-2, 'weeks')
+      const lessons = [
+        moment().add(-2, 'days')
+      ]
+
+      visitTutorialsWithDates({
+        createdAt: date,
+        updatedAt: date,
+        newMessage: 'new message',
+        lessons
+      })
+
+      cy.get('.tutorial-message--new').should('not.exist')
+      cy.get('.tutorial-message--updated').should('not.exist')
+      cy.get('.tutorial-message--new .tutorial-message-text').should('not.contain', 'new message')
+    })
+
     it(`should not show new message for recently published tutorials that were completed by user before this feature was implemented`, function () {
       const date = moment().add(-2, 'weeks')
 
