@@ -35,6 +35,7 @@ Ready to get started? Read on!
           - [Display results to the user (optional)](#display-results-to-the-user-optional)
     - [Manage your tutorial's metadata and routing](#manage-your-tutorials-metadata-and-routing)
       - [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
+        - [Add alert messages for new and updated tutorials (optional)](#add-alert-messages-for-new-and-updated-tutorials-optional)
       - [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
     - [Submit a pull request](#submit-a-pull-request)
   - [Troubleshooting](#troubleshooting)
@@ -510,6 +511,7 @@ In `static/tutorials.json`, add a new key for your tutorial and fill in the appr
     }
   ],
   "updateMessage": "",
+  "newMessage": "",
   "createdAt": "2020-01-01T00:00:00.000Z",
   "updatedAt": "2020-01-01T00:00:00.000Z"
 },
@@ -537,20 +539,20 @@ Be sure to include any ProtoSchool tutorials that would provide a nice follow-on
 
 ![screenshot](public/protoschool_resource.png)
 
-The properties `updateMessage`, `createdAt` and `updatedAt` are used to show update messages to users about a tutorial. There are two types of messages: `new` and `updated`.
+The properties `updateMessage`, `newMessage`, `createdAt` and `updatedAt` are used to alert users to new tutorials or tutorials that have been updated since they last visited them. When creating a new tutorial, both the `createdAt` and `updatedAt` fields should be set to the date you're submitting your pull request. Learn more about new and updated tutorial alerts below
+
+##### Add alert messages for new and updated tutorials (optional)
+
+**When a new tutorial is published**, a new tutorial alert will be displayed for one month. This message disappears when a user has completed the tutorial or when a month has passed since the `createdAt` date, whichever comes sooner. You can _optionally_ display a custom message within the new tutorial alert by updating the `newMessage` field in `tutorials.json`, using markdown formatting within the message as needed.
 
 ![New Tutorial Message](public/tutorial_message_new.jpg)
 
+**When major updates are made to an existing tutorial**, an update alert will be displayed to users who have previously completed at least one lesson within the tutorial. Major changes include those that change solution code or fundamentally alter the concepts being taught. If a user were to return to a lesson in your tutorial and find that their old solution no longer passed the lesson, that would be an indicator that you've made a major change that requires an alert. Simple typo fixes, addition of graphics, etc., do not count as major updates. 
+
+When submitting a PR that includes major tutorial updates, you should provide an `updateMessage` in `tutorials.json` that calls out what's changed, using markdown formatting as needed, and adjust the `updatedAt` field accordingly. This date will be compared to the date at which a user last completed a lesson to determine whether the message should be displayed. If displayed, the update message will disappear once a user has completed the updated version of the tutorial. Users who haven't visited a tutorial before its `updatedAt` date will never see the message.
+
 ![Updated Tutorial Message](public/tutorial_message_update.jpg)
 
-- For the message to show as "New", the `createdAt` date needs to be less than a month ago.
-- For the message to show as "Update", the `updatedAt` date needs to be less than a month ago and user completed the tutorial before `updatedAt`.
-
-The text inside the message is picked up from `updateMessage` and it can be markdown formatted. For tutorial updates a message needs to be included to explain what has been updated.
-
-Only major updates to tutorials like code solution changes and major definitions changing qualify as tutorial updates. Simple typo fixes and such do not qualify for tutorial updates.
-
-If a user has completed a tutorial, the message will disappear automatically.
 
 #### Add your tutorial to `static/courses.json`
 
