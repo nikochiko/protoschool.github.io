@@ -157,7 +157,7 @@
 		"title": "IPFS: Mutable File System",
 		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
 		"newMessage": "",
-		"updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
+		"updateMessage": "Version `0.41` of `js-ipfs` has introduced some major changes, most notably by introducing Async Iterables. You can learn more about the updates here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2020-04-01T00:00:00.000Z",
 		"resources": [
@@ -212,7 +212,7 @@
 		"title": "IPFS: Regular Files API",
 		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
 		"newMessage": "",
-		"updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
+		"updateMessage": "Version `0.41` of `js-ipfs` has introduced some major changes, most notably by introducing Async Iterables. You can learn more about the updates here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
 		"createdAt": "2019-01-01T00:00:00.000Z",
 		"updatedAt": "2020-04-01T00:00:00.000Z",
 		"resources": [
@@ -255,8 +255,8 @@
 		"description": "A content identifier, or CID, is a label used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
 		"newMessage": "",
 		"updateMessage": "",
-		"createdAt": "2020-03-06T00:00:00.000Z",
-		"updatedAt": "2020-03-06T00:00:00.000Z",
+		"createdAt": "2020-03-10T00:00:00.000Z",
+		"updatedAt": "2020-03-10T00:00:00.000Z",
 		"resources": [
 			{
 				"title": "How IPFS Deals With Files: Anatomy of a CID",
