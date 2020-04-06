@@ -25,7 +25,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
 
   function visitTutorialsWithDates ({
     createdAt = mockTutorial.createdAt,
-    updatedAt = mockTutorial.updateAt,
+    updatedAt = mockTutorial.updatedAt,
     newMessage = mockTutorial.newMessage,
     updateMessage = mockTutorial.updateMessage,
     passedAt,
@@ -78,7 +78,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--new .tutorial-message-text').should('contain', 'new message')
     })
 
-    it(`should show new message for new tutorials published less than a month ago that already has an update but the user hasn't finished it`, function () {
+    it(`should show new message for tutorials published less than a month ago that already have an update but don't yet have any lessons completed by user`, function () {
       const createdAt = moment().add(-2, 'weeks')
       const updatedAt = moment().add(-1, 'weeks')
 
@@ -94,7 +94,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--new .tutorial-message-text').should('contain', 'new message')
     })
 
-    it(`should not show new message for recently published tutorials that have been finished before the tutorial messages feature`, function () {
+    it(`should not show new message for recently published tutorials that were completed by user before this feature was implemented`, function () {
       const date = moment().add(-2, 'weeks')
 
       visitTutorialsWithDates({
@@ -119,7 +119,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--updated').should('not.exist')
     })
 
-    it(`should not show new message for recently published tutorials that have been finished`, function () {
+    it(`should not show new message for recently published tutorials that have already been completed`, function () {
       const date = moment().add(-2, 'weeks')
 
       visitTutorialsWithDates({
@@ -132,7 +132,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--updated').should('not.exist')
     })
 
-    it(`should not show new message for published tutorials more than a month ago that have been finished before the tutorial messages feature`, function () {
+    it(`should not show new message for tutorials published more than a month ago that have been completed before this feature was implemented`, function () {
       const date = moment().add(-5, 'weeks')
 
       visitTutorialsWithDates({
@@ -147,7 +147,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
   })
 
   describe('update tutorial messages', () => {
-    it(`should show update message for finished tutorial before the tutorial messages feature`, () => {
+    it(`should show update message for tutorial completed before the this feature was implemented`, () => {
       const createdAt = moment().add(-10, 'months')
       const updatedAt = moment().add(-2, 'weeks')
 
@@ -163,7 +163,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--updated .tutorial-message-text').should('contain', 'update')
     })
 
-    it(`should show update message for finished tutorial`, () => {
+    it(`should show update message for tutorial completed before update`, () => {
       const createdAt = moment().add(-10, 'months')
       const updatedAt = moment().add(-2, 'weeks')
       const passedAt = moment().add(-3, 'weeks')
@@ -196,7 +196,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--new').should('not.exist')
       cy.get('.tutorial-message--updated').should('exist')
     })
-    it(`should show update message for unfinished tutorial if some lessons were passed before the tutorial messages feature`, () => {
+    it(`should show update message for unfinished tutorial if some lessons were passed before this feature was implemented`, () => {
       const createdAt = moment().add(-10, 'months')
       const updatedAt = moment().add(-2, 'weeks')
       const lessons = [
@@ -213,7 +213,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--new').should('not.exist')
       cy.get('.tutorial-message--updated').should('exist')
     })
-    it(`should not show update message for unfinished tutorial if all the lessons were passed after the update`, () => {
+    it(`should not show update message for unfinished tutorial if any lesson was passed after the update`, () => {
       const createdAt = moment().add(-10, 'months')
       const updatedAt = moment().add(-2, 'weeks')
       const lessons = [
@@ -241,7 +241,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       cy.get('.tutorial-message--new').should('not.exist')
       cy.get('.tutorial-message--updated').should('not.exist')
     })
-    it(`should not show update message if no lessons were finished`, () => {
+    it(`should not show update message if no lessons are completed`, () => {
       const createdAt = moment().add(-5, 'weeks')
       const updatedAt = moment().add(-1, 'weeks')
 
