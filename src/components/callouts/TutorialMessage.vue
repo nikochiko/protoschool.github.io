@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="tutorialState.type"
-    class="container ph3 pt2 pb2 ba b--light-gray br3 flex-row tutorial-message"
-    :class="'tutorial-message--' + tutorialState.type + ' ' + (tutorialState.message ? 'flex' : 'inline-flex')"
+    class="container ph3 pt2 pb2 ba b--light-gray br3 flex-row tutorial-message flex"
+    :class="'tutorial-message--' + tutorialState.type"
   >
     <InfoIcon class="mr1" />
       <div>
