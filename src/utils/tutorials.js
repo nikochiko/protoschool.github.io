@@ -138,6 +138,16 @@ export function isTutorialPassed (tutorial) {
   return !!localStorage[`passed/${tutorial.url}`]
 }
 
+export function isTutorialPartiallyPassed (tutorial) {
+  const createdAtDate = new Date(tutorial.createdAt)
+
+  return isTutorialPassed(tutorial) || tutorial.lessons.some(lesson => {
+    const lessonPassedAt = localStorage[`passed/${tutorial.url}/${lesson.formattedId}`]
+
+    return new Date(lessonPassedAt) > createdAtDate
+  })
+}
+
 export function hasTutorialBeenUpdatedRecently (tutorial) {
   const updatedAtDate = new Date(tutorial.updatedAt)
   const tutorialPassedAt = localStorage[`passed/${tutorial.url}`]
@@ -163,7 +173,7 @@ export function hasTutorialBeenUpdatedRecently (tutorial) {
 }
 
 export function isTutorialNew (tutorial) {
-  return moment().diff(tutorial.createdAt, 'month') === 0 && !isTutorialPassed(tutorial)
+  return moment().diff(tutorial.createdAt, 'month') === 0 && !isTutorialPartiallyPassed(tutorial)
 }
 
 // returns string representing tutorial type
