@@ -17,12 +17,20 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
         description: 'This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports.'
       }
     ],
+    newMessage: '',
     updateMessage: '',
     createdAt: '2019-01-01T00:00:00.000Z',
     updatedAt: '2019-01-01T00:00:00.000Z'
   }
 
-  function visitTutorialsWithDates ({ createdAt, updatedAt, updateMessage, passedAt, lessons = [] }) {
+  function visitTutorialsWithDates ({
+    createdAt = mockTutorial.createdAt,
+    updatedAt = mockTutorial.updateAt,
+    newMessage = mockTutorial.newMessage,
+    updateMessage = mockTutorial.updateMessage,
+    passedAt,
+    lessons = []
+  }) {
     cy.visit('/#/tutorials', {
       onBeforeLoad (window) {
         window.__DATA__ = {
@@ -31,6 +39,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
               ...mockTutorial,
               createdAt: createdAt && createdAt.toISOString(),
               updatedAt: updatedAt && updatedAt.toISOString(),
+              newMessage,
               updateMessage
             }
           }
@@ -60,11 +69,29 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
 
       visitTutorialsWithDates({
         createdAt: date,
-        updatedAt: date
+        updatedAt: date,
+        newMessage: 'new message'
       })
 
-      cy.get('.tutorial-message--new')
+      cy.get('.tutorial-message--new').should('exist')
       cy.get('.tutorial-message--updated').should('not.exist')
+      cy.get('.tutorial-message--new .tutorial-message-text').should('contain', 'new message')
+    })
+
+    it(`should show new message for new tutorials published less than a month ago that already has an update but the user hasn't finished it`, function () {
+      const createdAt = moment().add(-2, 'weeks')
+      const updatedAt = moment().add(-1, 'weeks')
+
+      visitTutorialsWithDates({
+        createdAt,
+        updatedAt,
+        newMessage: 'new message',
+        updateMessage: 'update message'
+      })
+
+      cy.get('.tutorial-message--new').should('exist')
+      cy.get('.tutorial-message--updated').should('not.exist')
+      cy.get('.tutorial-message--new .tutorial-message-text').should('contain', 'new message')
     })
 
     it(`should not show new message for recently published tutorials that have been finished before the tutorial messages feature`, function () {
@@ -133,7 +160,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
 
       cy.get('.tutorial-message--new').should('not.exist')
       cy.get('.tutorial-message--updated').should('exist')
-      cy.get('.tutorial-message--updated .tutorial-message-text').should('exist')
+      cy.get('.tutorial-message--updated .tutorial-message-text').should('contain', 'update')
     })
 
     it(`should show update message for finished tutorial`, () => {
@@ -144,12 +171,13 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
       visitTutorialsWithDates({
         createdAt,
         updatedAt,
-        passedAt
+        passedAt,
+        updateMessage: 'update message'
       })
 
       cy.get('.tutorial-message--new').should('not.exist')
       cy.get('.tutorial-message--updated').should('exist')
-      cy.get('.tutorial-message--updated .tutorial-message-text').should('not.exist')
+      cy.get('.tutorial-message--updated .tutorial-message-text').should('contain', 'update message')
     })
     it(`should show update message for unfinished tutorial if some lessons were passed before the update`, () => {
       const createdAt = moment().add(-10, 'months')

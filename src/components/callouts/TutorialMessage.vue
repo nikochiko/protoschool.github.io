@@ -27,16 +27,22 @@ export default {
   computed: {
     tutorialState: function () {
       let title
-      const message = this.tutorial.updateMessage && marked(this.tutorial.updateMessage).html.replace('<p>', '').replace('</p>', '')
+      let message
       const type = tutorialState.get(this.tutorial)
+
+      function processMessage (message) {
+        return marked(message).html.replace('<p>', '').replace('</p>', '')
+      }
 
       switch (type) {
         case states.NEW: {
           title = `New`
+          message = this.tutorial.newMessage && processMessage(this.tutorial.newMessage)
           break
         }
         case states.UPDATED: {
           title = `Updated`
+          message = this.tutorial.updateMessage && processMessage(this.tutorial.updateMessage)
         }
       }
 

@@ -54,7 +54,6 @@
 				"description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
 			}
 		],
-		"updateMessage": "Read the announcement of this newly published tutorial [here](https://blog.ipfs.io/2020-03-04-protoschool-tutorial-anatomy-of-a-cid).",
     "createdAt": "2020-03-06T00:00:00.000Z",
     "updatedAt": "2020-03-06T00:00:00.000Z"
 	}
