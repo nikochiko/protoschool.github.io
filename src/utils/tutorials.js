@@ -155,7 +155,7 @@ export function hasTutorialBeenUpdatedRecently (tutorial) {
     tutorial.updatedAt !== tutorial.createdAt ||
     !!tutorial.updateMessage
 
-  const tutorialsPassedBeforeUpdate = tutorialPassedAt && (
+  const tutorialPassedBeforeUpdate = tutorialPassedAt && (
     tutorialPassedAt === 'passed' ||
     new Date(tutorialPassedAt) < updatedAtDate
   )
@@ -169,7 +169,7 @@ export function hasTutorialBeenUpdatedRecently (tutorial) {
     )
   })
 
-  return tutorialHasUpdates && (tutorialsPassedBeforeUpdate || someLessonPassedBeforeUpdate)
+  return tutorialHasUpdates && (tutorialPassedBeforeUpdate || someLessonPassedBeforeUpdate)
 }
 
 export function isTutorialNew (tutorial) {
@@ -208,9 +208,9 @@ export function getLessonType (tutorialId, lessonId) {
 export function setLessonPassed (tutorial, lesson) {
   if (lesson.type === 'resources') {
     localStorage[`passed/${tutorial.url}/resources`] = new Date().toISOString()
+  } else {
+    localStorage[`passed/${tutorial.url}/${lesson.formattedId}`] = new Date().toISOString()
   }
-
-  localStorage[`passed/${tutorial.url}/${lesson.formattedId}`] = new Date().toISOString()
 }
 
 export function isLessonPassed (tutorial, lesson) {
